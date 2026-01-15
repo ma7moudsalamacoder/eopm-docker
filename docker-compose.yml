@@ -1,0 +1,64 @@
+version: "3.8"
+
+services:
+  db:
+    image: mysql:8.4
+    container_name: eopm-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: eopm
+      MYSQL_USER: eopmuser
+      MYSQL_PASSWORD: eopmpass
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: eopm-mailpit
+    restart: always
+    ports:
+      - "8025:8025"   # Web UI
+      - "1025:1025"   # SMTP
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        UID: 501
+        GID: 1000
+    user: "501:1000"
+    container_name: eopm-web
+    restart: always
+    depends_on:
+      - db
+      - mailpit
+    ports:
+      - "8090:80"
+    volumes:
+      - ./eopm-laravel:/var/www/html/eopm
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: eopm
+      DB_USERNAME: eopmuser
+      DB_PASSWORD: eopmpass
+
+      MAIL_MAILER: smtp
+      MAIL_HOST: mailpit
+      MAIL_PORT: 1025
+      MAIL_USERNAME: null
+      MAIL_PASSWORD: null
+      MAIL_ENCRYPTION: null
+      MAIL_FROM_ADDRESS: "noreply@eopm.local"
+      MAIL_FROM_NAME: "eopm Local"
+
+volumes:
+  db_data:

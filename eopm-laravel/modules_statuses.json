@@ -1,0 +1,7 @@
+{
+    "System": true,
+    "Auth": true,
+    "Order": true,
+    "Payment": true,
+    "Inventory": true
+}
