@@ -13,7 +13,7 @@ The Extendable Order & Payment Management API (EOPM) implements a **Strategy Pat
 The foundation of our extensible payment system is the `PaymentGatewayInterface` contract. This interface defines the standard methods that all payment gateways must implement.
 
 ```php
-namespace Modules\Payments\Contracts;
+namespace Modules\Payment\Contracts;
 
 interface PaymentGatewayInterface
 {
@@ -40,9 +40,9 @@ interface PaymentGatewayInterface
 The `MGateway` class is our demonstration payment gateway implementation. It simulates real payment processing without actual financial transactions, making it perfect for development and testing.
 
 ```php
-namespace Modules\Payments\Gateways;
+namespace Modules\Payment\Gateways;
 
-use Modules\Payments\Contracts\PaymentGatewayInterface;
+use Modules\Payment\Contracts\PaymentGatewayInterface;
 
 class MGateway implements PaymentGatewayInterface
 {
@@ -117,12 +117,12 @@ class MGateway implements PaymentGatewayInterface
 The `PaymentGatewayResolver` class implements the Strategy Pattern, dynamically selecting the appropriate payment gateway based on the payment method requested.
 
 ```php
-namespace Modules\Payments\Services;
+namespace Modules\Payment\Services;
 
-use Modules\Payments\Gateways\MGateway;
-use Modules\Payments\Gateways\StripeGateway;
-use Modules\Payments\Gateways\PayPalGateway;
-use Modules\Payments\Contracts\PaymentGatewayInterface;
+use Modules\Payment\Gateways\MGateway;
+use Modules\Payment\Gateways\StripeGateway;
+use Modules\Payment\Gateways\PayPalGateway;
+use Modules\Payment\Contracts\PaymentGatewayInterface;
 
 class PaymentGatewayResolver
 {
@@ -179,7 +179,7 @@ Here's how to use the payment gateway system in your Laravel application:
 namespace Modules\Orders\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Modules\Payments\Services\PaymentGatewayResolver;
+use Modules\Payment\Services\PaymentGatewayResolver;
 use Modules\Orders\Models\Order;
 
 class PaymentController extends Controller
@@ -257,9 +257,9 @@ The beauty of this architecture is that adding new payment gateways requires **z
 #### Step 1: Create Stripe Gateway Class
 
 ```php
-namespace Modules\Payments\Gateways;
+namespace Modules\Payment\Gateways;
 
-use Modules\Payments\Contracts\PaymentGatewayInterface;
+use Modules\Payment\Contracts\PaymentGatewayInterface;
 use Stripe\Stripe;
 use Stripe\Charge;
 
@@ -369,7 +369,7 @@ return match($method) {
 
 ```php
 use Tests\TestCase;
-use Modules\Payments\Gateways\MGateway;
+use Modules\Payment\Gateways\MGateway;
 
 class MGatewayTest extends TestCase
 {
