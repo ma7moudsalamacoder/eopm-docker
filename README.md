@@ -1,5 +1,9 @@
 # Extendable Order & Payment Management API (EOPM)
 
+## Important Links
+  - [Installation](docs/EOPM_Docker_Installation_Guide.md)
+  - [Architecture](docs/payment_gateway_architecture.md)
+
 ## Overview
 
 The Extendable Order & Payment Management API (EOPM) is a RESTful API built with Laravel 12, secured using JWT authentication, and designed with extensibility in mind. The system allows managing orders and processing payments through multiple gateways using a strategy-based architecture.
