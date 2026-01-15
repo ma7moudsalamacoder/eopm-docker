@@ -2,7 +2,10 @@
 
 ## Important Links
   - [Installation](docs/EOPM_Docker_Installation_Guide.md)
-  - [Architecture](docs/payment_gateway_architecture.md)
+  - [Payment Gateway Architecture](docs/payment_gateway_architecture.md)
+  - [Test By Apidog File (Highly Recommended)](docs/EOPM.apidog.json)
+  - [Test By Postman Files](docs/EOPM.zip)
+
 
 ## Overview
 
